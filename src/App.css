@@ -1,0 +1,50 @@
+#game{
+  width: 400px; 
+  height: 400px;
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  transform: translate( -50%, -50%)
+}
+
+
+.pixel{ 
+  width: 70px; height: 70px;
+  background: white;
+  border-right: solid black 1px;
+  border-bottom: solid black 1px;
+  display: block;
+  float: left;
+}
+
+.flex {
+   width: 1100px;
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+   flex-wrap: wrap;
+   justify-content: center;
+}
+
+.items {
+   align-self: center;
+   align-items: center;
+}
+
+.playerRight {
+   background-color: gray;
+   width: 20px;
+   height: 20px;
+   position: relative;
+   top: 25px;
+   left: 45%;
+}
+
+.playerLeft {
+   background-color: gray;
+   width: 20px;
+   height: 20px;
+   position: relative;
+   top: 25px;
+   left: 25%;
+}
