@@ -17,7 +17,7 @@ export default class GameState extends React.Component {
                          id={i} 
                          pixelX={countX} 
                          pixelY={countY}
-                         phase={[]}
+                         phase={''}
                          />)
          countX++
       }
