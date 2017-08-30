@@ -21,17 +21,17 @@ export default class GameState extends React.Component {
                          />)
          countX++
       }
-      
       this.state = {
          playerPosition: {
             x: 0,
             y: 0
          },
          pixels: column,
+         pixelWidth: 70,
+         pixelHeight: 70 ,
          face: true
       }
    }
-   
    changePosition(X,Y) {
       const maxX = 14
       const maxY = 7
@@ -39,7 +39,6 @@ export default class GameState extends React.Component {
       const minY = 0
       let finalX = this.state.playerPosition.x + (X)
       let finalY = this.state.playerPosition.y + (Y)
-      
       if (finalX > maxX) {
          finalX = maxX
       } else if (finalX < minX) {
@@ -49,16 +48,12 @@ export default class GameState extends React.Component {
       } else if ( finalY < minY) {
          finalY = minY
       }
-      
-      
       this.setState({
          playerPosition: {
             x: finalX,
             y: finalY
          }
       })
-      
-      
       let column = []
       let countX = 0
       let countY = 7
@@ -72,7 +67,7 @@ export default class GameState extends React.Component {
                          id={i} 
                          pixelX={countX} 
                          pixelY={countY}
-                         type={<Player face={this.state.face} />}
+                         type={<Player />}
                          />)
          } else {
             column.push( < Pixel key={i} 
@@ -82,64 +77,40 @@ export default class GameState extends React.Component {
                          type={''}
                          />)
          }
-         countX++
+          countX++
       }
-      
       this.setState({
          pixels: column
       })
-      
    }
-   
    componentDidMount() {
      // this.state.pixels.map(function(pixel) {
      //    if(pixel.props.pixelX === this.state.playerPosition.x && pixel.props.pixelY === this.state.playerPosition.y) {
      //        return pixel.props.type = <Player face={this.state.face} />
      //    }
      // })
-      
       document.addEventListener('keydown', (e) => {
          switch(e.keyCode) {
-            case 39:
-               this.moveRight()
-               break
             case 37:
                this.moveLeft()
                break
             case 32:
-               this.jump(this.state.playerPosition.x , this.state.playerPosition.y)
-               break
-            case 40:
-               this.moveDown()
+                 this.jump(this.state.playerPosition.x , this.state.playerPosition.y)
+                 break
+             case 40:
+                 this.moveDown()
                break
             default:
                 this.changePosition(0,0)
          }
       })
    }
-   
    moveRight() {
-      if(this.state.face === true) {
-       this.changePosition(1,0)  
-      } else {
-         this.setState({
-            face: true
-         })
-         this.changePosition(0,0)
-      }
+      
    }
-   
-   moveLeft() {
-      if(this.state.face === false) {
-       this.changePosition(-1,0)  
-      }else {
-         this.setState({
-            face: false
-         })
-         this.changePosition(0,0) 
-      }
+    moveLeft() {
+        this.changePosition(-1,0)
    }
-   
    jump(X, Y) {
       this.changePosition(0,1)
       if(this.state.face) {
@@ -159,13 +130,13 @@ export default class GameState extends React.Component {
    }
    
    moveDown() {
-      this.changePosition(0,-1)
+       this.changePosition(0,-1)
    }
-   
-   render() {
-      return (
-         <div>
-            <ul className="flex col s12">{this.state.pixels}</ul>
+    
+    render() {
+        return (
+           <div>
+              <ul className="flex col s12">{this.state.pixels}</ul>
          </div>
       )
    }

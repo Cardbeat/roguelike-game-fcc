@@ -3,26 +3,23 @@ import GameState from './GameState';
 
 export default class Game extends React.Component {
    constructor() {
-      super()
+       super();
       this.state = {
          map: ['map1','map2','map3','map4'],
          indexMap: 0
-      }
+      };
    }
-   
-   
    changeMap() {
       if(this.state.indexMap >= 3) {
          this.setState({
          indexMap: 0
-      })
+         });
       }else if (this.state.indexMap < 3) {
          this.setState({
          indexMap: this.state.indexMap + 1
-      })
+         });
       }
    }
-   
    render() {
       return(
          <div>
@@ -32,6 +29,6 @@ export default class Game extends React.Component {
             </div>
             <button onClick={this.changeMap.bind(this)}> change map </button>
          </div>
-      )
+      );
    }
 }
