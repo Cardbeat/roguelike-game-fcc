@@ -1,5 +1,5 @@
 import React from 'react';
-import Player from './Player';
+import Pixel from './Pixel';
 
 export default class Map extends React.Component {
    constructor() {
@@ -28,16 +28,16 @@ export default class Map extends React.Component {
        for(let c = 0 ; c < pixels.length; c++) {
            for(let l = 0 ; l < pixels[0].length; l++) {
                if(pixels[c][l] === 0) {
-                   this.state.tileMap.push(<li className='items pixel sky'></li>)
+                   this.state.tileMap.push(< Pixel type={'sky'} />)
                }
                if(pixels[c][l] === 1) {
-                   this.state.tileMap.push(<li className='items pixel wall'></li>)
+                   this.state.tileMap.push(< Pixel type={'block'} />)
                }
                if(pixels[c][l] === 3) {
-                   this.state.tileMap.push(<li className='items pixel clounds'></li>)
+                   this.state.tileMap.push(< Pixel type={'clound'} />)
                }
                if(pixels[c][l] === 4) {
-                   this.state.tileMap.push(<li className='items pixel sky'><Player/></li>)
+                   this.state.tileMap.push(< Pixel type={'player'} />)
                }
            }
        }

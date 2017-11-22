@@ -4,7 +4,10 @@ export default class Player extends React.Component {
    constructor() {
        super()
        this.state = {
-           move: 0
+           left: 0,
+           right: 0,
+           top: 40,
+           down: 0,
        }
    }
 
@@ -12,18 +15,26 @@ export default class Player extends React.Component {
        document.addEventListener('keydown', (e) => {
            if(e.keyCode === 39) {
                this.setState({
-                   move: this.state.move + 3 
+                left: this.state.left + 3
                })
            }
 
+           if(e.keyCode === 38) {
+            this.setState({
+                top: this.state.top - 3
+                })
+            }
+
+           if(e.keyCode === 40) {
+            this.setState({
+                top: this.state.top + 3
+                })
+            }
+            
+
            if(e.keyCode === 37) {
                this.setState({
-                   move: this.state.move - 3
-               })
-           }
-           if(e.keyCode === 37) {
-               this.setState({
-                   move: this.state.move - 3
+                left: this.state.left - 3
                })
            }
            if(e.keyCode === 32) {
@@ -35,8 +46,10 @@ export default class Player extends React.Component {
    render() {
        let playerMove = {
            position: 'relative',
-           top: '40px',
-           left: this.state.move + 'px'
+           right: this.state.right + 'px',
+           bottom: this.state.down + 'px',
+           top: this.state.top + 'px',
+           left: this.state.left + 'px'
        }
        return (
            <div id="player" style={playerMove}></div>

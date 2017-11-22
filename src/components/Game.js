@@ -1,11 +1,10 @@
 import React from 'react';
-import Map from './Map';
+import GameState from './GameState';
 
 export default class Game extends React.Component {
    constructor() {
-       super();
+       super()
        this.state = {
-           mapState: <Map />,
            pixel: {
                width: 1200,
                height: 600
@@ -15,9 +14,7 @@ export default class Game extends React.Component {
 
    render() {
        return (
-           <div>
-               <Map />
-           </div>
-       );
+           < GameState />
+       )
    }
 }
