@@ -29,7 +29,7 @@ export default class Pixel extends React.Component {
         }
         if( this.props.type === 'player') {
             return (
-                <li className='items pixel sky'><Player/></li>
+                <li className='items pixel sky'><Player playerPosition={this.props.playerPosition} /></li>
             )
         }
     }

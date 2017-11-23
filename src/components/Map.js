@@ -28,16 +28,16 @@ export default class Map extends React.Component {
        for(let c = 0 ; c < pixels.length; c++) {
            for(let l = 0 ; l < pixels[0].length; l++) {
                if(pixels[c][l] === 0) {
-                   this.state.tileMap.push(< Pixel type={'sky'} />)
+                   this.state.tileMap.push(< Pixel type={'sky'} key={[c,l]} />)
                }
                if(pixels[c][l] === 1) {
-                   this.state.tileMap.push(< Pixel type={'block'} />)
+                   this.state.tileMap.push(< Pixel type={'block'} key={[c,l]}/>)
                }
                if(pixels[c][l] === 3) {
-                   this.state.tileMap.push(< Pixel type={'clound'} />)
+                   this.state.tileMap.push(< Pixel type={'clound'} key={[c,l]}/>)
                }
                if(pixels[c][l] === 4) {
-                   this.state.tileMap.push(< Pixel type={'player'} />)
+                   this.state.tileMap.push(< Pixel type={'player'} playerPosition={[c,l]} key={[c,l]}/>)
                }
            }
        }

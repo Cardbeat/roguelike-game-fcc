@@ -8,39 +8,74 @@ export default class Player extends React.Component {
            right: 0,
            top: 40,
            down: 0,
+           playerPosition: []
        }
    }
 
    componentDidMount() {
-       document.addEventListener('keydown', (e) => {
-           if(e.keyCode === 39) {
-               this.setState({
-                left: this.state.left + 3
-               })
-           }
 
-           if(e.keyCode === 38) {
-            this.setState({
-                top: this.state.top - 3
-                })
-            }
+    let playerPositionX = 0
+    let playerPositionY = 0
 
-           if(e.keyCode === 40) {
+    let Key = {
+        _pressed: {},
+      
+        LEFT: 37,
+        UP: 38,
+        RIGHT: 39,
+        DOWN: 40,
+        
+        isDown: function(keyCode) {
+          return this._pressed[keyCode];
+        },
+        
+        onKeydown: function(event) {
+          this._pressed[event.keyCode] = true;
+        },
+        
+        onKeyup: function(event) {
+          delete this._pressed[event.keyCode];
+        }
+      };
+      
+
+      window.addEventListener('keyup', function(e) { Key.onKeyup(e)}, false)
+      window.addEventListener('keydown', function(e) { Key.onKeydown(e); }, false)
+
+
+       document.addEventListener('keypress', (e) => {
+        if(Key.isDown(Key.RIGHT)) {
             this.setState({
-                top: this.state.top + 3
-                })
-            }
+             left: this.state.left + 2
+            })
+            playerPositionX = playerPositionX + 2
+        }
+
+        if(Key.isDown(Key.UP)) {
+             this.setState({
+                 top: this.state.top - 2
+             })
+             playerPositionY = playerPositionY + 2
             
+         }
 
-           if(e.keyCode === 37) {
-               this.setState({
-                left: this.state.left - 3
-               })
-           }
-           if(e.keyCode === 32) {
-               //jump
-           }
-       })
+        if(Key.isDown(Key.DOWN)) {
+             this.setState({
+                 top: this.state.top + 2
+                 })
+             playerPositionY = playerPositionY - 2
+             
+         }
+         
+
+        if(Key.isDown(Key.LEFT)) {
+             this.setState({
+                 left: this.state.left - 2
+                })
+                playerPositionX = playerPositionX - 2
+            }
+      })
+
    }
 
    render() {
