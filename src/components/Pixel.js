@@ -1,36 +1,18 @@
-import React from 'react';
-import Player from './Player';
-
+import React from 'react'
 
 export default class Pixel extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            width: 20,
-            heigth: 20
-        }
-    }
-
     render() {
-        if(this.props.type === 'block') {
-            return (
-                <li className='items pixel wall'></li>
-            )
-        }
-        if(this.props.type === 'sky') {
-            return (
-                <li className='items pixel sky'></li>
-            )
-        }
-        if(this.props.type === 'clound') {
-            return (
-                <li className='items pixel clounds'></li>
-            )
-        }
-        if( this.props.type === 'player') {
-            return (
-                <li className='items pixel sky'><Player playerPosition={this.props.playerPosition} /></li>
-            )
-        }
+       if (this.props.type === "block") {
+          return <li className="items pixel block" />;
+       }
+       if (this.props.type === "free") {
+          return <li className="items pixel free" />;
+       }
+       if (this.props.type === "player") {
+          return <li className="items pixel player" />;
+       }
+       if (this.props.type === "door") {
+          return <li className="items pixel door" />;
+       }
     }
-}
+ }

@@ -8,8 +8,6 @@
 }
 
 .flex {
-   width: 1200px;
-   height: 600px;
    display: flex;
    flex-direction: row;
    align-content: center;
@@ -23,31 +21,28 @@
 }
 
 .pixel {
-   height: 60px;
-   width: 60px;
+   height: 30px;
+   width: 30px;
    position: relative;
 }
 
-.sky {
-   background-color: skyblue;
+.player {
+   background-color: blue;
 }
 
-.clounds {
+.door {
+   background-color: brown;
+}
+
+.free {
    background-color: whitesmoke;
 }
 
-.wall {
+.block {
    background-color: gray;
-}
-
-#player {
-   z-index: 2;
-   height: 20px;
-   width: 20px;
-   background-color: yellow;
 }
 
 .display {
    height: 600px;
-   width: 1200px;
+   width: 750px;
 }

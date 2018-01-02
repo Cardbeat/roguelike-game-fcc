@@ -1,20 +1,29 @@
-import React from 'react';
-import GameState from './GameState';
+import React from 'react'
+import '../App.css'
+import Menu from './Menu'
+import GameState from './GameState'
+
 
 export default class Game extends React.Component {
-   constructor() {
-       super()
-       this.state = {
-           pixel: {
-               width: 1200,
-               height: 600
-           }
-       };
-   }
+  constructor() {
+     super();
+     this.state = {
+        game: true
+     };
+     this.gameStart = this.gameStart.bind(this);
+  }
 
-   render() {
-       return (
-           < GameState />
-       )
-   }
+  gameStart() {
+     this.setState({
+        game: true
+     });
+  }
+
+  render() {
+     if (this.state.game) {
+        return <GameState />;
+     } else if (this.state.game === false) {
+        return <Menu gameStart={this.gameStart} checkGame={this.state.game} />;
+     }
+  }
 }
