@@ -1,5 +1,6 @@
 import React from 'react'
-import View from './View'
+import Pixel from './Pixel'
+import { maps } from './data/maps'
 
 export default class GameState extends React.Component {
     constructor() {
@@ -8,16 +9,22 @@ export default class GameState extends React.Component {
           playerX: 2,
           playerY: 8,
           Map: [],
-          mapIndex: 0
+          mapIndex: 0,
+          actualMap: []
        };
- 
-       this.updateMap = this.updateMap.bind(this);
     }
  
     updateMap(map) {
        this.setState({
           Map: map
        });
+    }
+
+
+    componentWillMount() {
+        this.setState({
+            actualMap: maps[this.state.mapIndex]
+         });
     }
  
     checkBlock(x, y) {
@@ -33,6 +40,7 @@ export default class GameState extends React.Component {
     }
  
     componentDidMount() {
+        this.updateMap(this.state.actualMap);
        window.addEventListener("keydown", e => {
           switch (e.keyCode) {
              case 37:
@@ -43,6 +51,18 @@ export default class GameState extends React.Component {
                       playerX: this.state.playerX - 1
                    });
                 }
+                if (
+                    this.checkBlock(this.state.playerY, this.state.playerX ) ===
+                    "door"
+                 ) {
+                     this.setState({
+                         mapIndex: 0,
+                         actualMap: maps[0],
+                         playerX: 24
+                     })
+                     this.updateMap(this.state.actualMap);
+                     console.log([this.state.playerX, this.state.playerY])
+                 }
                 break;
              case 39:
                 if (
@@ -57,9 +77,12 @@ export default class GameState extends React.Component {
                    "door"
                 ) {
                     this.setState({
-                        mapIndex: 1
+                        mapIndex: 1,
+                        actualMap: maps[1],
+                        playerX: 0
                     })
-                    console.log(this.state.mapIndex)
+                    this.updateMap(this.state.actualMap);
+                    console.log([this.state.playerX, this.state.playerY])
                 }
                 break;
              case 38:
@@ -87,13 +110,44 @@ export default class GameState extends React.Component {
     }
  
     render() {
-       return (
-          <View
-             playerX={this.state.playerX}
-             playerY={this.state.playerY}
-             updateMap={this.updateMap}
-             mapIndex={this.state.mapIndex}
-          />
-       );
-    }
+        let gameMap = [];
+
+        if(this.state.mapIndex === 0) {
+            const pixels = maps[this.state.mapIndex];
+        for (let c = 0; c < pixels.length; c++) {
+           for (let l = 0; l < pixels[0].length; l++) {
+              if (c === this.state.playerY && l === this.state.playerX) {
+                 gameMap.push(<Pixel type={"player"} key={[c,l]} />);
+              } else if (pixels[c][l] === 0) {
+                 gameMap.push(<Pixel type={"free"} key={[c,l]} />);
+              } else if (pixels[c][l] === 1) {
+                 gameMap.push(<Pixel type={"block"} key={[c,l]} />);
+              } else if (pixels[c][l] === 2) {
+                 gameMap.push(<Pixel type={"door"} key={[c,l]} />);
+              }
+           }
+        }
+        }
+        else if (this.state.mapIndex === 1) {
+            const pixels = maps[this.state.mapIndex];
+        for (let c = 0; c < pixels.length; c++) {
+           for (let l = 0; l < pixels[0].length; l++) {
+              if (c === this.state.playerY && l === this.state.playerX) {
+                 gameMap.push(<Pixel type={"player"} key={[c,l]} />);
+              } else if (pixels[c][l] === 0) {
+                 gameMap.push(<Pixel type={"free"} key={[c,l]} />);
+              } else if (pixels[c][l] === 1) {
+                 gameMap.push(<Pixel type={"block"} key={[c,l]} />);
+              } else if (pixels[c][l] === 2) {
+                 gameMap.push(<Pixel type={"door"} key={[c,l]} />);
+              }
+           }
+        }
+        }
+        return (
+           <div className="display">
+              <ul className="flex col s12">{gameMap}</ul>
+           </div>
+        );
+     }
  }
