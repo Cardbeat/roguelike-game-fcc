@@ -23,9 +23,11 @@ export default class GameState extends React.Component {
     checkBlock(x, y) {
        if (this.state.Map[x][y] === 0) {
           return true;
-       } else if (this.state.Map[x][y] === 1) {
+       }
+       if (this.state.Map[x][y] === 1) {
           return false;
-       } else if (this.state.Map[x][y] === 2) {
+       }
+       if (this.state.Map[x][y] === 2) {
           return "door";
        }
     }
@@ -54,6 +56,10 @@ export default class GameState extends React.Component {
                    this.checkBlock(this.state.playerY, this.state.playerX) ===
                    "door"
                 ) {
+                    this.setState({
+                        mapIndex: 1
+                    })
+                    console.log(this.state.mapIndex)
                 }
                 break;
              case 38:

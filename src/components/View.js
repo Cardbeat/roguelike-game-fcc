@@ -26,13 +26,13 @@ export default class View extends React.Component {
       for (let c = 0; c < pixels.length; c++) {
          for (let l = 0; l < pixels[0].length; l++) {
             if (c === this.props.playerY && l === this.props.playerX) {
-               gameMap.push(<Pixel type={"player"} />);
+               gameMap.push(<Pixel type={"player"} key={[c,l]} />);
             } else if (pixels[c][l] === 0) {
-               gameMap.push(<Pixel type={"free"} />);
+               gameMap.push(<Pixel type={"free"} key={[c,l]} />);
             } else if (pixels[c][l] === 1) {
-               gameMap.push(<Pixel type={"block"} />);
+               gameMap.push(<Pixel type={"block"} key={[c,l]} />);
             } else if (pixels[c][l] === 2) {
-               gameMap.push(<Pixel type={"door"} />);
+               gameMap.push(<Pixel type={"door"} key={[c,l]} />);
             }
          }
       }
