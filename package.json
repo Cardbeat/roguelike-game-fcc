@@ -1,5 +1,5 @@
 {
-  "name": "game2d",
+  "name": "roguelike-game-fcc",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
