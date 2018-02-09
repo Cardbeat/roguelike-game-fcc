@@ -4,7 +4,7 @@
   position: absolute;
   top: 30%;
   left: 20%;
-  transform: translate( -50%, -50%)
+  transform: translate( -50%, -50% )
 }
 
 .flex {
@@ -27,11 +27,10 @@
 }
 
 .player {
-   background-color: blue;
 }
 
 .door {
-   background-color: brown;
+   background-color: Sienna;
 }
 
 .free {
@@ -45,4 +44,28 @@
 .display {
    height: 600px;
    width: 750px;
+}
+
+.flexScreen {
+   display: inline-flex;
+   flex-wrap: nowrap
+}
+
+
+.info {
+   height: 451px;
+   width: 200px;
+   margin-top: 14px;
+}
+
+.enemy {
+   background-color: red;
+}
+
+.health {
+   background-color: greenyellow;
+}
+
+.weaponUpgrade {
+   background-color: purple;
 }
