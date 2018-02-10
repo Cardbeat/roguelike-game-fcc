@@ -4,6 +4,10 @@ import { maps } from './data/maps'
 import Info from './Info'
 
 export default class GameState extends React.Component {
+    // transfer playerstat to here
+    // create function to subtract from enemy component
+    // check stat function after battle system
+    // make a view component to refactor GameState
     constructor() {
         super();
         this.state = {
