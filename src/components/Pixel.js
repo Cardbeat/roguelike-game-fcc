@@ -6,10 +6,6 @@ import WeaponUpgrade from './WeaponUpgrade'
 
 
 export default class Pixel extends React.Component {
-   
-    getInfo(lvl, hp, xp, dmg) {
-       this.props.getInfo(lvl,hp,xp,dmg)
-    }
     
     
     render() {
@@ -27,7 +23,7 @@ export default class Pixel extends React.Component {
           return <img src={'https://image.ibb.co/bsxOeR/stone2.jpg'} alt='ground' />;
        }
        if (this.props.type === "player") {
-          return < Player getInfo={this.getInfo.bind(this)} />
+          return < Player  />
        }
        if (this.props.type === "door") {
           return <img  src={'https://image.ibb.co/jhqNeR/xatuba.jpg'} alt='door' />;
@@ -41,6 +37,5 @@ export default class Pixel extends React.Component {
        if (this.props.type === "weaponUpgrade") {
           return < WeaponUpgrade />
        }
-       // if enemy [ 4 types of enemies and 2 sub-bosses + 1 boss]
     }
  }

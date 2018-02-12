@@ -2,12 +2,14 @@ import React from 'react'
 import Pixel from './Pixel'
 import { maps } from './data/maps'
 import Info from './Info'
+import { allEnemies } from './data/allEnemies';
+// import { enemies} from './data/enemies'
+// import {allEnemies} from './data/allEnemies'
 
 export default class GameState extends React.Component {
-    // transfer playerstat to here
+    // transfer playerstat to here === done
     // create function to subtract from enemy component
-    // check stat function after battle system
-    // make a view component to refactor GameState
+    // make a view component to refactor GameState === dont need right now
     constructor() {
         super();
         this.state = {
@@ -17,7 +19,12 @@ export default class GameState extends React.Component {
            mapName: maps[0].map, // index to mapObject
            actualMap: [],
            local: maps[0].name,
-           playerStatus: [ 0,0,0,0 ]
+           mapLvl: 1,
+           life: 100,
+           lvl: 1,
+           dmg: 30,
+           xp: 0,
+           enemies: []
         };
      }
   
@@ -26,26 +33,15 @@ export default class GameState extends React.Component {
            Map: map
         });
      }
-    
-    getInfo(lvl,hp,xp,dmg) {
-       this.setState({
-          playerStatus: [lvl,hp,xp,dmg]
-       })
-       
-       return (
-          < Info playerStatus={this.state.playerStatus}/>
-       )
-    }
- 
+
  
      componentWillMount() {
          this.setState({
-             actualMap: this.state.mapName // index to mapObject
+             actualMap: this.state.mapName
           });
      }
   
      checkBlock(x, y) {
-        console.log(this.state.Map[x][y])
         if (this.state.Map[x][y] === 0) {
            return true;
         }
@@ -55,7 +51,49 @@ export default class GameState extends React.Component {
         if([10,20,30,40,50,60,70].includes(this.state.Map[x][y])) {
            return "door";
         }
+        if(this.state.Map[x][y] === 2) {
+            // work with enemy position to get all the stats and save to get that perm dmg when you hit multiple targets
+            // I can bring this to a object factory and make a search loop before play the actual combat?
+            // search > bring dmg / create pixel with dmg and then push to the array thing.]
+            allEnemies.map(enemy => {
+                if(enemy.lvl === this.state.mapLvl) {
+                    if(enemy.position[0] === x && enemy.position[1] === y ) {
+                       this.setState({
+                           life: this.state.life - enemy.dmg
+                       })
+                       if(this.state.life <=0 ) {
+                           console.log('game over')
+                       } else {
+                        enemy.hp = enemy.hp - this.state.dmg
+                        if(enemy.hp <=0) {
+                            this.state.Map[x][y] = 0
+                            return true
+                        } else {
+                            return false
+                        }
+
+                       }
+
+                    }
+                }
+            })
+        }
+        if(this.state.Map[x][y] === 3) {
+            this.setState({
+                life: this.state.life + 20
+            })
+            this.state.Map[x][y] = 0
+            return true
+        }
+        if( this.state.Map[x][y] === 4 ) {
+            this.setState({
+                dmg: this.state.dmg + 10
+            })
+            this.state.Map[x][y] = 0
+            return true
+        }
      }
+
     
     mapChanger(keycode, index) {
        switch(index) {
@@ -64,7 +102,8 @@ export default class GameState extends React.Component {
                mapName: maps[0].map,
                actualMap: maps[0].map,
                playerX: 23,
-               local: maps[0].name
+               local: maps[0].name,
+               mapLvl: 1
              })
              this.updateMap(this.state.actualMap)
              break;
@@ -72,7 +111,8 @@ export default class GameState extends React.Component {
              this.setState({
                mapName: maps[1].map,
                actualMap: maps[1].map,
-               local: maps[1].name
+               local: maps[1].name,
+               mapLvl: 2
              })
              if(keycode === 40) {
                 this.setState({
@@ -95,7 +135,8 @@ export default class GameState extends React.Component {
              this.setState({
                mapName: maps[2].map,
                actualMap: maps[2].map,
-               local: maps[2].name
+               local: maps[2].name,
+               mapLvl: 3
              })
              if(keycode === 38) {
                 this.setState({
@@ -113,7 +154,8 @@ export default class GameState extends React.Component {
              this.setState({
                 mapName: maps[3].map,
                 actualMap: maps[3].map,
-                local: maps[3].name
+                local: maps[3].name,
+                mapLvl: 4
              })
              if(keycode === 38) {
                 this.setState({
@@ -234,7 +276,7 @@ export default class GameState extends React.Component {
          for (let c = 0; c < pixels.length; c++) {
             for (let l = 0; l < pixels[0].length; l++) {
                if (c === this.state.playerY && l === this.state.playerX) {
-                  gameMap.push(<Pixel type={"player"} key={[c,l]} getInfo={this.getInfo.bind(this)} />);
+                  gameMap.push(<Pixel type={"player"} key={[c,l]}  />);
                } else if (pixels[c][l] === 0) {
                   gameMap.push(<Pixel type={"free"} key={[c,l]} />);
                } else if (pixels[c][l] === 1) {
@@ -252,10 +294,7 @@ export default class GameState extends React.Component {
                } 
             }
          }
-        
-         // 
-         // display hp/lvl/xp and objective
-         // change constructor to game state, idk if its better but... yeah..
+
          return (
             <div>
                <h4>{this.state.local}</h4>
@@ -263,7 +302,7 @@ export default class GameState extends React.Component {
                 <div className="display">
                  <ul className="flex">{gameMap}</ul>
                 </div>
-               < Info playerStatus={this.state.playerStatus}/>
+               < Info hp={this.state.life} xp={this.state.xp} lvl={this.state.lvl} dmg={this.state.dmg} />
                </div>
             </div>
          );

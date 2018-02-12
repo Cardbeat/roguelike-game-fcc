@@ -1,13 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import Game from './components/Game';
-import registerServiceWorker from './registerServiceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import Game from './components/Game'
+import registerServiceWorker from './registerServiceWorker'
 import { maps } from './components/data/maps'
+import  {enemies} from './components/data/enemies'
+import {allEnemies} from './components/data/allEnemies'
 
 
 
 window.onload = function() {
+    // eslint-disable-next-line
     maps.map(function(x,y) {
        switch(y) {
           case 0:
@@ -16,6 +19,7 @@ window.onload = function() {
           case 1:
              randomizer(y, 8, 1, 1)
              break;
+
           case 2:
              randomizer(y, 8, 1, 1)
              break;
@@ -40,7 +44,7 @@ window.onload = function() {
              if(enemy < enemies) {
                 if(Math.floor(Math.random() * (150 - 0) + 0) < 5) {
                 maps[index].map[i][j] = 2
-                   
+                enemizer(maps[index].mapLvl, [i,j])
                 enemy++
                 }
              }
@@ -51,7 +55,6 @@ window.onload = function() {
                    hpPotion++
                 }
                 
-                console.log(hpPotion)
              }
              
              if(weaponUpgrade < weapon) {
@@ -65,6 +68,20 @@ window.onload = function() {
           }
        }
     }
+ }
+
+
+ function enemizer(index, [a,b]) {
+     enemies.map( enemy => {
+        if(index === enemy.lvl) {
+            allEnemies.push({
+                lvl: index,
+                hp: enemy.hp,
+                dmg: enemy.dmg,
+                position: [a, b]
+            })
+        }
+     })
  }
 
 
