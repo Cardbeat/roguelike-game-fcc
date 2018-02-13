@@ -9,7 +9,7 @@ export default class Info extends React.Component {
           <div className='info'>
              <div className='container'>
                 < Status hp={this.props.hp} xp={this.props.xp} lvl={this.props.lvl} dmg={this.props.dmg}/>
-                < Objective />
+                < Objective obj={this.props.obj} />
              </div>
           </div>
        )

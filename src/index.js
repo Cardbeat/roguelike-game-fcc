@@ -42,7 +42,7 @@ window.onload = function() {
        for(let j = 0; j < maps[index].map[0].length ; j++) {
           if(maps[index].map[i][j] === 0 ) {
              if(enemy < enemies) {
-                if(Math.floor(Math.random() * (150 - 0) + 0) < 5) {
+                if(Math.floor(Math.random() * (150 - 0) + 0) < 75) {
                 maps[index].map[i][j] = 2
                 enemizer(maps[index].mapLvl, [i,j])
                 enemy++
@@ -50,7 +50,7 @@ window.onload = function() {
              }
              
              if(hpPotion < hp) {
-                if(Math.floor(Math.random() * (100 - 0) + 0) < 5) {
+                if(Math.floor(Math.random() * (100 - 0) + 0) < 50) {
                 maps[index].map[i][j] = 3
                    hpPotion++
                 }
@@ -58,7 +58,7 @@ window.onload = function() {
              }
              
              if(weaponUpgrade < weapon) {
-                if(Math.floor(Math.random() * (100 - 0) + 0) < 20) {
+                if(Math.floor(Math.random() * (100 - 0) + 0) < 50) {
                 maps[index].map[i][j] = 4
                    weaponUpgrade++
                 }
@@ -78,6 +78,7 @@ window.onload = function() {
                 lvl: index,
                 hp: enemy.hp,
                 dmg: enemy.dmg,
+                xp: enemy.xp,
                 position: [a, b]
             })
         }
