@@ -26,19 +26,15 @@
    position: relative;
 }
 
-.player {
+.weaponUpgrade {
+  z-index: -1;
 }
 
-.door {
-   background-color: Sienna;
-}
 
-.free {
-   background-color: whitesmoke;
-}
 
-.block {
-   background-color: gray;
+.fog {
+  background-color:  black;
+  z-index: 1;
 }
 
 .display {
@@ -58,14 +54,3 @@
    margin-top: 14px;
 }
 
-.enemy {
-   background-color: red;
-}
-
-.health {
-   background-color: greenyellow;
-}
-
-.weaponUpgrade {
-   background-color: purple;
-}

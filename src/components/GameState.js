@@ -76,7 +76,7 @@ export default class GameState extends React.Component {
             }
         }
         if(this.state.Map[x][y] === 2) {
-            
+             // eslint-disable-next-line
             allEnemies.map(enemy => {
                 if(enemy.lvl === this.state.mapLvl) {
                     if(enemy.position[0] === x && enemy.position[1] === y ) {
@@ -84,11 +84,11 @@ export default class GameState extends React.Component {
                            life: this.state.life - enemy.dmg
                        })
                        if(this.state.life <=0 ) {
-                           console.log('game over')
+                           this.props.gameOver()
                        } else {
                         enemy.hp = enemy.hp - this.state.dmg
                         if(enemy.hp <=0) {
-                            
+                            // eslint-disable-next-line
                             this.state.Map[x][y] = 0
                             
                             this.setState({
@@ -110,6 +110,7 @@ export default class GameState extends React.Component {
             this.setState({
                 life: this.state.life + 60
             })
+            // eslint-disable-next-line
             this.state.Map[x][y] = 0
             return true
         }
@@ -117,6 +118,7 @@ export default class GameState extends React.Component {
             this.setState({
                 dmg: this.state.dmg + 10
             })
+            // eslint-disable-next-line
             this.state.Map[x][y] = 0
             return true
         }
@@ -301,26 +303,29 @@ export default class GameState extends React.Component {
      }
   
      render() {
+         // need to spec playerX/Y and objectX/Y
          let gameMap = [];
             const pixels = this.state.mapName;
          for (let c = 0; c < pixels.length; c++) {
             for (let l = 0; l < pixels[0].length; l++) {
                if (c === this.state.playerY && l === this.state.playerX) {
-                  gameMap.push(<Pixel type={"player"} key={[c,l]}  />);
+                  gameMap.push(<Pixel type={"player"} key={[c,l]} playerX={this.state.playerX} playerY={this.state.playerY} pixelX={l} pixelY={c} />);
                } else if (pixels[c][l] === 0) {
-                  gameMap.push(<Pixel type={"free"} key={[c,l]} />);
+                  gameMap.push(<Pixel type={"free"} key={[c,l]} playerX={this.state.playerX} playerY={this.state.playerY} pixelX={l} pixelY={c}/>);
                } else if (pixels[c][l] === 1) {
-                  gameMap.push(<Pixel type={"block"} key={[c,l]} local={this.state.local} />);
+                  gameMap.push(<Pixel type={"block"} key={[c,l]} local={this.state.local} playerX={this.state.playerX} playerY={this.state.playerY} pixelX={l} pixelY={c}/>);
                }  else if ( pixels[c][l] === 2 ) {
-                  gameMap.push(<Pixel type={"enemy"} key={[c,l]} />);
+                  gameMap.push(<Pixel type={"enemy"} key={[c,l]} playerX={this.state.playerX} playerY={this.state.playerY} pixelX={l} pixelY={c}/>);
                } else if( pixels[c][l] === 3 ) {
-                  gameMap.push(<Pixel type={"health"} key={[c,l]} />);
+                  gameMap.push(<Pixel type={"health"} key={[c,l]} playerX={this.state.playerX} playerY={this.state.playerY} pixelX={l} pixelY={c}/>);
                } else if( pixels[c][l] === 4 ) {
-                  gameMap.push(<Pixel type={"weaponUpgrade"} key={[c,l]} />);
+                  gameMap.push(<Pixel type={"weaponUpgrade"} key={[c,l]} playerX={this.state.playerX} playerY={this.state.playerY} pixelX={l} pixelY={c}/>);
+               } else if (pixels[c][l] === 50) {
+                gameMap.push(<Pixel type={"boss door"} key={[c,l]} playerX={this.state.playerX} playerY={this.state.playerY} pixelX={l} pixelY={c} />);
                } else if ([10,20,30,40,50,60,70].includes(pixels[c][l])) {
-                  gameMap.push(<Pixel type={"door"} key={[c,l]} />);
+                  gameMap.push(<Pixel type={"door"} key={[c,l]} playerX={this.state.playerX} playerY={this.state.playerY} pixelX={l} pixelY={c}/>);
                } else if( pixels[c][l] === 8 ) {
-                  gameMap.push(<Pixel type={"pillar"} key={[c,l]} />);
+                  gameMap.push(<Pixel type={"pillar"} key={[c,l]} playerX={this.state.playerX} playerY={this.state.playerY} pixelX={l} pixelY={c}/>);
                } 
             }
          }

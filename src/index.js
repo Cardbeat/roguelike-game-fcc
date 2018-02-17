@@ -42,15 +42,23 @@ window.onload = function() {
        for(let j = 0; j < maps[index].map[0].length ; j++) {
           if(maps[index].map[i][j] === 0 ) {
              if(enemy < enemies) {
-                if(Math.floor(Math.random() * (150 - 0) + 0) < 75) {
+                if(i > 9 && j >  12 ) {
+                   maps[index].map[i][j] = 2
+                   enemizer(maps[index].mapLvl, [i,j])
+                   enemy++
+                } else if(Math.floor(Math.random() * (100 - 0) + 0) < 5) {
                 maps[index].map[i][j] = 2
                 enemizer(maps[index].mapLvl, [i,j])
                 enemy++
                 }
              }
              
-             if(hpPotion < hp) {
-                if(Math.floor(Math.random() * (100 - 0) + 0) < 50) {
+             if(hpPotion === 0) {
+                console.log(hpPotion)
+                if( i > 12  && j > 18) {
+                   maps[index].map[i][j] = 3
+                   hpPotion++
+                } else if(Math.floor(Math.random() * (100 - 0) + 0) < 40) {
                 maps[index].map[i][j] = 3
                    hpPotion++
                 }
@@ -58,7 +66,10 @@ window.onload = function() {
              }
              
              if(weaponUpgrade < weapon) {
-                if(Math.floor(Math.random() * (100 - 0) + 0) < 50) {
+                if( i > 9 && j >  12 ) {
+                   maps[index].map[i][j] = 4
+                   weaponUpgrade++
+                } else if(Math.floor(Math.random() * (100 - 0) + 0) < 40) {
                 maps[index].map[i][j] = 4
                    weaponUpgrade++
                 }
@@ -72,9 +83,10 @@ window.onload = function() {
 
 
  function enemizer(index, [a,b]) {
+     // eslint-disable-next-line
      enemies.map( enemy => {
         if(index === enemy.lvl) {
-            allEnemies.push({
+             allEnemies.push({
                 lvl: index,
                 hp: enemy.hp,
                 dmg: enemy.dmg,
