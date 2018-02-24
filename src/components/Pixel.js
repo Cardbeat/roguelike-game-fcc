@@ -9,9 +9,9 @@ export default class Pixel extends React.Component {
     
     
     render() {
-       if( 
-       [this.props.playerX + 1, this.props.playerX - 1, this.props.playerX].includes(this.props.pixelX) && 
-       [this.props.playerY + 1, this.props.playerY - 1, this.props.playerY].includes(this.props.pixelY) ) {
+        //  [this.props.playerX + 1, this.props.playerX - 1, this.props.playerX].includes(this.props.pixelX) && 
+       // [this.props.playerY + 1, this.props.playerY - 1, this.props.playerY].includes(this.props.pixelY)
+       if( true) {
         if (this.props.type === "block") {
             if(this.props.local === 'Crystal Labyrinth') {
                return <img src={'https://image.ibb.co/eqG8Dm/crystal.jpg'} alt='crystal'/>
@@ -29,7 +29,7 @@ export default class Pixel extends React.Component {
             return < Player  />
          }
          else if (this.props.type === "door") {
-            return <img  src={'https://image.ibb.co/jhqNeR/xatuba.jpg'} alt='door' />;
+            return <img  src={'http://i68.tinypic.com/v8oos3_th.jpg'} alt='door' />;
          }
          else if (this.props.type === "enemy") {
             return < Enemy />
